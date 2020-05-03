@@ -1,0 +1,26 @@
+.form{
+  display: flex;
+  flex-direction: column;
+}
+
+.ATM-card{
+  background-image: url('./ATM-CARD.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+ width: 400px;
+height: 250px;
+margin-top: 40px;
+padding-top: 150px;
+
+}
+.rib{
+  text-align: center;
+  font-size: larger;
+}
+.name-date{
+  display: flex;
+  justify-content: space-around;
+}
+.name{
+  font-weight: bold;
+}
