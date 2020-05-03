@@ -12,28 +12,18 @@ class Credit extends Component {
             username : '',
             expirationDate : '' ,
             nameError : '',
+            RibStars : '**** **** **** ****',
+            DateDefault : 'MM/YY'
         }
     }
 
-    handlerChange = (event) => {
-        
-        this.setState({
-                
-            [event.target.name]: event.target.value
-        })  
-
-        if (this.state.username.length < 3 ) {
-            this.setState({nameError : "name is short "})
-          }
-        else {
-            this.setState({nameError : ""})
-        }   
-           
-    }
+   
    
     RIBChange = (e) => {
-        setInterval(() => (this.setState({RIB : this.state.RIB.slice(0,19)})))
+        
         setInterval(() => (this.setState({RIB: this.state.RIB.replace(/\D/g, "").replace(/(.{4})/g, "$1 ").trim()})));
+        setInterval(() => (this.setState({RIB : this.state.RIB.slice(0,19)})))
+        
         
     }
     
@@ -45,9 +35,63 @@ class Credit extends Component {
       }  
     
     expirationDateChange = (e) => {
-        setInterval(() => (this.setState({expirationDate : this.state.expirationDate.slice(0,5)})))
-        setInterval(() => (this.setState({expirationDate : this.state.expirationDate.replace(/\D/g, "").replace(/(.{2})/, "$1/").trim(), })));
+        setInterval(() => (this.setState({expirationDate : this.state.expirationDate.slice(0,5)})),100)
+        setInterval(() => (this.setState({expirationDate : this.state.expirationDate.replace(/\D/g, "").replace(/(.{2})/, "$1/").trim(), })),100);
     
+    }
+    nameHandler = (event) => {
+        
+        this.setState({
+                
+            [event.target.name]: event.target.value
+        })  
+
+        // message error for username
+
+        if (this.state.username.length < 3 ) {
+            this.setState({nameError : "Name is short* "})
+          }
+        else {
+            this.setState({nameError : ""})
+        }   
+     
+    }
+    RIBhandler = (event) => {
+        
+        this.setState({
+                
+            [event.target.name]: event.target.value
+        })  
+
+        // replacing with stars for rib
+        let Stars = "********************".split("");
+        Stars.unshift(event.target.value);
+        for (let i = 0; i < event.target.value.length; i++) {
+            Stars.pop();
+        }
+        
+        let RibStars2 = Stars.join("");
+       
+        this.setState({RibStars : RibStars2})
+        
+    }
+    dateHandler = (event) => {
+        
+        this.setState({
+                
+            [event.target.name]: event.target.value
+        })  
+
+        //replacing with strings with date
+        let DateDefault = "MM/YY*".split("");
+        DateDefault.unshift(event.target.value);
+        for (let i = 0; i < event.target.value.length+1; i++) {
+            DateDefault.pop();
+        }
+        let DateDefault2 = DateDefault.join("");
+       
+        
+        this.setState({DateDefault : DateDefault2})
     }
         
 
@@ -60,15 +104,16 @@ class Credit extends Component {
                     <input name = "RIB" 
                       type='text' 
                       value ={this.state.RIB} 
-                      onChange ={this.handlerChange} 
-                      onFocus={this.RIBChange}/>
+                      onChange ={this.RIBhandler} 
+                      onFocus ={this.RIBChange}
+                      />
                     <p>{this.state.RibError}</p>
 
                     <label>User Name</label>
                     <input name = "username"
                      type='text' 
                      value ={this.state.username} 
-                     onChange ={this.handlerChange}
+                     onChange ={this.nameHandler}
                      onFocus = {this.nameChange}/>
                      <p style = {{
                          color: "red"
@@ -79,14 +124,14 @@ class Credit extends Component {
                     name = "expirationDate" 
                     type='text' 
                     value ={this.state.expirationDate}
-                    onChange ={this.handlerChange}
+                    onChange ={this.dateHandler}
                     onFocus = {this.expirationDateChange}/>
                 </div>
                 <div className= "ATM-card ">
-                    <p className = "rib">{this.state.RIB}</p>
+                    <p className = "rib">{this.state.RibStars}</p>
                     <div className="name-date">
                         <h6 className="name">{this.state.username}</h6>
-                        <p>{this.state.expirationDate}</p>
+                        <p>{this.state.DateDefault}</p>
                     </div>
                 </div>
             </form>
