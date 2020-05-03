@@ -33,13 +33,13 @@ class Credit extends Component {
    
     RIBChange = (e) => {
         setInterval(() => (this.setState({RIB : this.state.RIB.slice(0,19)})))
-        setInterval(() => (this.setState({RIB: this.state.RIB.replace(/\D/g, "").replace(/(.{4})/g, "$1 ")})));
+        setInterval(() => (this.setState({RIB: this.state.RIB.replace(/\D/g, "").replace(/(.{4})/g, "$1 ").trim()})));
         
     }
     
     nameChange = (e) => {
         setInterval(() => (this.setState({username : this.state.username.replace(/[^a-z]/gi,' ')})))
-        setInterval(() => (this.setState({username : this.state.username.slice(0,22).toUpperCase().trim()})))
+        setInterval(() => (this.setState({username : this.state.username.slice(0,22).toUpperCase()})))
         
         
       }  
